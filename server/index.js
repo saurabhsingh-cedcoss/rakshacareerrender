@@ -1,3 +1,4 @@
+var path = require('path')
 const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose')
@@ -11,7 +12,7 @@ const sendSmsRoute = require('./routes/api/sendSms')
 const feeSubmit = require('./routes/api/feeSubmit')
 
 // initializes the express application
-const app = express()
+const app = express();
 
 // sets up CORS for Cross-Origin-Resource-Sharing
 app.use(cors())
@@ -20,7 +21,7 @@ app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 app.use(express.static("../client/build"));
 app.get("*", (req, res) => {
-   res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+   res.sendFile(path.resolve( "../client", "build", "index.html"));
 });
 // imports our database credentials (stored separately for security)
 const db = require('./config/keys').mongoURI

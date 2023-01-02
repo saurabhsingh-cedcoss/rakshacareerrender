@@ -233,7 +233,7 @@ function StudentsGrid() {
         <a
           onClick={() => {
             axios
-              .get("http://localhost:4000/sendSms")
+              .get("/sendSms")
               .then(function (response) {
                 openToast(response.data.message);
               });
@@ -261,7 +261,7 @@ function StudentsGrid() {
   const deleteStudent = (admissionNo) => {
     setDelLoader(true);
     axios
-      .post("http://localhost:4000/students/delete", {
+      .post("/students/delete", {
         admissionNo,
       })
       .then((res) => {
@@ -279,7 +279,7 @@ function StudentsGrid() {
   const getAllStudent = (filter) => {
     console.log(filter, "filter");
     axios
-      .post("http://localhost:4000/students", filter ? { session: filter } : {})
+      .post("/students", filter ? { session: filter } : {})
       .then((res) => {
         console.log(res.data);
         let keyAddedRow = res.data.map((ele) => {
