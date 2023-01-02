@@ -9,7 +9,7 @@ function StudentData(data) {
 
   const submitFees = () => {
     axios
-      .post("http://localhost:4000/submitFee", {
+      .post("/submitFee", {
         admissionNo: location.state.admissionNo,
         totalFees: location.state.totalFee,
         paidFees: feesSubmitted,

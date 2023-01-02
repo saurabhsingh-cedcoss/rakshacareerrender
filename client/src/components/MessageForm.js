@@ -22,7 +22,7 @@ function MessageForm() {
   const [loader, setLoader] = useState(false);
   const handleSubmit = () => {
     axios
-      .post("http://localhost:4000/smstext", smstext)
+      .post("/smstext", smstext)
       .then(function (response) {
         if (response.data.success) {
           notification.info({
@@ -49,7 +49,7 @@ function MessageForm() {
   }, []);
 
   const getSms = () => {
-    axios.get("http://localhost:4000/smstext").then((res) => {
+    axios.get("/smstext").then((res) => {
       console.log(res);
       setSmstext({
         smsText: res.data[0].smsText,

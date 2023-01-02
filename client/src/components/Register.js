@@ -109,7 +109,7 @@ const Register = () => {
 
   const editStudent = () => {
     axios
-      .post("http://localhost:4000/students/editStudent", {
+      .post("/students/editStudent", {
         ...{
           admissionNo: location.state.admissionNo,
         },
@@ -133,7 +133,7 @@ const Register = () => {
 
   const submitForm = () => {
     axios
-      .post("http://localhost:4000/register", studentData)
+      .post("/register", studentData)
       .then(function (response) {
         if (response.data.success) {
           setLoader(false);
@@ -200,7 +200,7 @@ const Register = () => {
 
   const submitFees = () => {
     axios
-      .post("http://localhost:4000/submitFee", {
+      .post("/submitFee", {
         admissionNo: location.state.admissionNo,
         submitFillMonth: monthPay,
         paidFees: feePay,
