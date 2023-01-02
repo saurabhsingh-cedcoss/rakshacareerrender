@@ -18,7 +18,10 @@ app.use(cors())
 // converts API responses to JSON for easy use
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
-
+app.use(express.static("../client/build"));
+app.get("*", (req, res) => {
+   res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+});
 // imports our database credentials (stored separately for security)
 const db = require('./config/keys').mongoURI
 
@@ -28,6 +31,8 @@ mongoose
   .connect(db, () => {}, {useNewUrlParser: true})
   .then(() => console.log('Mongo Database connected'))
   .catch(err => console.log(err))
+
+
 
 // creates a route where we can interact with our API
 app.use("/register", registerRoute);
@@ -42,7 +47,7 @@ app.use("/sendSms", sendSmsRoute);
 app.use("/submitFee", feeSubmit);
 
 // sets the port number depending if we are in production or development
-const port = process.env.PORT || 5000
+const port =  5000
 
 // intializes the server and logs a message
 server = app.listen(port, () => console.log(`Server running on port ${port}`))
