@@ -61,6 +61,56 @@ function StudentsGrid() {
       dataIndex: "addmissionFor",
       key: "addmissionFor",
       render: (t) => <>{t || "NA"}</>,
+      filters: [
+        {
+          text: "P.G.",
+          value: "P.G.",
+        },
+        {
+          text: "NURSERY",
+          value: "NUR",
+        },
+        {
+          text: "L.K.G",
+          value: "L.K.G",
+        },
+        {
+          text: "U.K.G",
+          value: "U.K.G",
+        },
+        {
+          text: "1",
+          value: "1",
+        },
+        {
+          text: "2",
+          value: "2",
+        },
+        {
+          text: "3",
+          value: "3",
+        },
+        {
+          text: "4",
+          value: "4",
+        },
+        {
+          text: "5",
+          value: "5",
+        },
+        {
+          text: "6",
+          value: "6",
+        },
+        {
+          text: "7",
+          value: "7",
+        },{
+          text: "8",
+          value: "8",
+        }
+        
+      ],
     },
 
     {
@@ -276,10 +326,10 @@ function StudentsGrid() {
       });
   };
 
-  const getAllStudent = (filter) => {
+  const getAllStudent = (filter,courseFilter) => {
     console.log(filter, "filter");
     axios
-      .post("/students", filter ? { session: filter } : {})
+      .post("/students", filter ? { session: filter } : courseFilter?{addmissionFor:courseFilter}:{})
       .then((res) => {
         console.log(res.data);
         let keyAddedRow = res.data.map((ele) => {
@@ -291,9 +341,39 @@ function StudentsGrid() {
   };
 
   const tableChange = (pagination, filters, sorter, extra) => {
-    console.log("params", pagination, filters, sorter, extra);
-    if (filters.session) {
-      getAllStudent(filters.session);
+    let courseFilter=filters.addmissionFor;
+    if(courseFilter.includes("P.G.")){
+      courseFilter.push("pg")
+      courseFilter.push("Pg")
+      courseFilter.push("P.G")
+      courseFilter.push("P.g")
+
+    }
+    if(courseFilter.includes("NUR")){
+      courseFilter.push("Nur")
+      courseFilter.push("nur")
+      courseFilter.push("Nur.")     
+    }
+    if(courseFilter.includes("U.K.G.")){
+      courseFilter.push("UKG")
+      courseFilter.push("U.kg")
+      courseFilter.push("U.K.G")
+      courseFilter.push("ukg")     
+      courseFilter.push("ukg.")     
+      courseFilter.push("u.k.g.")     
+
+    }
+    if(courseFilter.includes("L.K.G.")){
+      courseFilter.push("LKG")
+      courseFilter.push("L.kg")
+      courseFilter.push("L.K.G")
+      courseFilter.push("lkg")     
+      courseFilter.push("lkg.")     
+      courseFilter.push("l.k.g.")     
+
+    }
+    if (filters.session || filters.addmissionFor) {
+      getAllStudent(filters.session,courseFilter);
     } else {
       getAllStudent();
     }

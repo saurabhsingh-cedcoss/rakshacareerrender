@@ -7,7 +7,10 @@ router.post("/", async (req, res) => {
     if (Object.keys(req.body).length === 0) {
       const stu = await student.find();
       res.json(stu);
-    } else {
+    }else if (req.body.hasOwnProperty('addmissionFor')) {
+      const stu = await student.find({ addmissionFor: { $in: req.body.addmissionFor } });
+      res.json(stu);
+    } else if (req.body.hasOwnProperty('session')  ) {
       const stu = await student.find({ session: { $in: req.body.session } });
       res.json(stu);
     }
